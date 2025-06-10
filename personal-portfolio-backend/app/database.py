@@ -1,6 +1,6 @@
-from sqlmodel import SQLModel, create_engine, Session
-from sqlmodel import select
+from sqlmodel import SQLModel, create_engine, Session, select
 from app.models import Project
+
 
 # 连接字符串，后续正式部署可以放在 .env 里
 DATABASE_URL = "sqlite:///./test.db"  # ✅ 目前先用本地SQLite（方便开发）

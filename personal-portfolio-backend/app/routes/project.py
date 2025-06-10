@@ -1,7 +1,8 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 from app.models import Project
 from app.database import engine
+from app.schemas import ProjectCreate
 
 # 创建路由分组
 router = APIRouter(
@@ -21,3 +22,14 @@ async def get_projects(session: Session = Depends(get_session)):
     statement = select(Project)
     results = session.exec(statement).all()
     return results
+
+@router.post("/", response_model=Project)
+async def create_project(
+    project: ProjectCreate,
+    session: Session = Depends(get_session)
+):
+    db_project = Project(**project.dict())  # 转成数据库模型对象
+    session.add(db_project)
+    session.commit()
+    session.refresh(db_project)  # 让它拿到 id
+    return db_project
