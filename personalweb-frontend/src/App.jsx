@@ -1,6 +1,7 @@
 import React from 'react'
 import ProjectList from './components/ProjectList'
 import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -36,7 +37,9 @@ function App() {
         <div className="grid gap-4 max-w-3xl mx-auto">
           {projects.map((project) => (
             <div key={project.id} className="border border-gray-300 p-4 rounded shadow-sm">
-              <h2 className="text-xl font-semibold">{project.name}</h2>
+              <Link to={`/projects/${project.id}`}>
+                <h2 className="text-xl font-bold">{project.name}</h2>
+              </Link>
               <p className="text-gray-700">{project.description}</p>
             </div>
           ))}

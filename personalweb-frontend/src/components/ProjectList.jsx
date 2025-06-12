@@ -1,5 +1,5 @@
 // src/components/ProjectList.jsx
-
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react'
 
 function ProjectList() {
@@ -31,11 +31,15 @@ function ProjectList() {
     if (error) return <p className="text-center mt-8 text-red-500">{error}</p>
 
     return (
-        <div className="max-w-4xl mx-auto mt-10 space-y-4">
+        <div>
             {projects.map((project) => (
-                <div key={project.id} className="p-4 border rounded shadow">
-                    <h2 className="text-xl font-semibold">{project.name}</h2>
-                    <p className="text-gray-600">{project.description}</p>
+                <div key={project.id} className="mb-4 p-4 border">
+                    <h2 className="text-2xl font-bold">
+                        <Link to={`/projects/${project.id}`} className="text-purple-800 underline hover:text-blue-600">
+                            {project.name}
+                        </Link>
+                    </h2>
+                    <p>{project.description}</p>
                 </div>
             ))}
         </div>
